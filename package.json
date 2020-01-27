@@ -1,0 +1,37 @@
+{
+    "name": "redux-saga-poller",
+    "version": "0.0.1",
+    "description": "Saga for polling with consistent actions",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "build": "tsc -b"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/clarktozer/redux-saga-poller.git"
+    },
+    "keywords": [
+        "react",
+        "redux",
+        "redux-saga",
+        "typescript"
+    ],
+    "author": "Clark Tozer <clarkwtozer@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/clarktozer/redux-saga-poller/issues"
+    },
+    "homepage": "https://github.com/clarktozer/redux-saga-poller#readme",
+    "peerDependencies": {
+        "redux-saga": "^1.1.1"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.9.0",
+        "jest": "^24.9.0",
+        "redux-saga": "^1.1.1",
+        "redux-saga-test-plan": "^4.0.0-rc.3",
+        "ts-jest": "^24.3.0",
+        "typescript": "^3.6.3"
+    }
+}

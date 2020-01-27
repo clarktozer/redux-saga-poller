@@ -1,0 +1,21 @@
+{
+    "npm.enableScriptExplorer": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "editor.formatOnSave": true,
+    "editor.trimAutoWhitespace": true,
+    "javascript.implicitProjectConfig.checkJs": true,
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.autoIndent": true,
+    "prettier.printWidth": 140,
+    "prettier.arrowParens": "avoid",
+    "prettier.singleQuote": false,
+    "javascript.validate.enable": true,
+    "files.exclude": {
+        "**/node_moduless/": true,
+        "**/lib/": true
+    }
+}
