@@ -1,12 +1,12 @@
-import { takeEvery } from "redux-saga/effects";
+import { call, race, take, takeEvery } from "redux-saga/effects";
 
-export interface PollingAction<T, M, E = Error> {
+export interface IPollingAction<T, M, E = Error> {
     type: string;
-    payload: PollingPayload<T, E>;
+    payload: IPollingPayload<T, E>;
     meta?: M;
 }
 
-export interface PollingPayload<P, E = Error> {
+export interface IPollingPayload<P, E = Error> {
     id: string;
     interval?: number;
     request: () => Promise<P>;
@@ -15,8 +15,35 @@ export interface PollingPayload<P, E = Error> {
     onFailure?: (error: E) => void;
 }
 
-function* pollingWorker<T, M>({ type, payload: { onFailure, onContinue, request }, meta }: PollingAction<T, M>) {}
+export interface IStopPollingAction {
+    type: string;
+    payload: string;
+}
 
-export function* pollingSaga<P extends any, M extends any>() {
-    yield takeEvery(({ type, payload }: PollingAction<P, M>) => type && type.endsWith("_POLL_START") && payload.id != null, pollingWorker);
+function* pollingWorker<T, M>(actionSuffix: string, actionStopSuffix: string, action: IPollingAction<T, M>) {
+    const prefix = action.type.replace(actionSuffix, "");
+
+    yield race({
+        task: call(pollingExecutor, action, prefix),
+        cancel: take(
+            (stopAction: IStopPollingAction) =>
+                stopAction.type === `${prefix}${actionStopSuffix}` && stopAction.payload && stopAction.payload === action.payload.id
+        )
+    });
+}
+
+function* pollingExecutor<P, M>(
+    { payload: { id, onContinue, request, interval = 10000, onFailure, onFinished } }: IPollingAction<P, M>,
+    actionPrefix: string
+) {
+    // start polling
+}
+
+export function* pollingSaga<T, M>(actionStartSuffix = "_POLL_START", actionStopSuffix = "_POLL_STOP") {
+    yield takeEvery(
+        ({ payload, type }: IPollingAction<T, M>) => type && type.endsWith(actionStartSuffix) && payload.id != null,
+        function*(action: IPollingAction<T, M>) {
+            yield call(pollingWorker, actionStartSuffix, actionStopSuffix, action);
+        }
+    );
 }
