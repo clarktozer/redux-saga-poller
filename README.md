@@ -2,6 +2,25 @@
 
 ![CI Status](https://img.shields.io/github/workflow/status/clarktozer/redux-saga-poller/Build%20&%20Test)
 
-Poll API end point using Redux Saga
+Saga for consistent polling of async actions
 
-In progress
+Dispatch the polling start action in FSA format with your desired postfix (default is "\_POLL_START").
+
+```
+dispatch({
+    type: "GET_ITEMS_POLL_START",
+    payload: {
+        id: 1,
+        interval: 1000,
+        request: () => Promise.resolve([1, 2, 3, 4, 5]),
+        onContinue: (response) => response.length === 5,
+        onSuccess: (response) => {
+            alert(response);
+        },
+        onFailure: (error) => {
+            alert(error);
+        }
+    },
+    meta: "Some data"
+})
+```
