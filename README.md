@@ -24,3 +24,12 @@ dispatch({
     meta: "Some data"
 })
 ```
+
+Dispatch the polling stop action in FSA format with your desired stop polling postfix (default is "\_POLL_STOP").
+
+```
+dispatch({
+    type: "GET_ITEMS_POLL_STOP",
+    payload: 1,
+})
+```
