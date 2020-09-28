@@ -1,6 +1,7 @@
 # redux-saga-poller
 
 ![CI Status](https://img.shields.io/github/workflow/status/clarktozer/redux-saga-poller/Build%20&%20Test)
+[![npm version](https://img.shields.io/npm/v/redux-saga-poller.svg)](https://www.npmjs.com/package/redux-saga-poller)
 
 Saga for consistent polling of async actions
 
