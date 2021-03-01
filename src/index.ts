@@ -89,7 +89,7 @@ function* pollingExecutor<P, M>(
 export function* pollingSaga<T, M>(actionStartSuffix = "_POLL_START", actionStopSuffix = "_POLL_STOP") {
     yield takeEvery(
         ({ payload, type }: IPollingAction<T, M>) => type && type.endsWith(actionStartSuffix) && payload.id != null,
-        function*(action: IPollingAction<T, M>) {
+        function* (action: IPollingAction<T, M>) {
             yield call(pollingWorker, actionStartSuffix, actionStopSuffix, action);
         }
     );
